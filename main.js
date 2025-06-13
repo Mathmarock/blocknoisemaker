@@ -300,7 +300,8 @@ function previewGif() {
         quality: 10,
         width: gifframes[0].width,
         height: gifframes[0].height,
-        workerScript: 'gif.worker.js'
+        workerScript: 'gif.worker.js',
+        transparent: 'rgba(0,0,0,0)'
     });
 
     for (let i = 0; i < gifframes.length; i++) {
@@ -320,7 +321,7 @@ function previewGif() {
 
 document.getElementById('downloadGifBtn').addEventListener('click', () => {
     if (!gifBlobUrl) {
-        alert('まずGIFを生成してください');
+        alert('まず「実行」を押してGIFを生成してください');
         return;
     }
     const link = document.createElement('a');
