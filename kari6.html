@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>ブロックノイズメーカー</title>
+    <script src="https://cdn.jsdelivr.net/npm/gif.js.optimized/dist/gif.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=800, user-scalable=no">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div class="header-area">
+      <h1>Block Noise Maker</h1>
+      <p class="description">画像にブロックノイズを加えたり、ノイズとともに消失するアニメGIFを生成できるツールです。<br><br>
+        まず画像ファイルを選択してください。</p>
+      <input type="file" id="imageLoader" accept="image/png, image/gif">
+    </div>
+
+    <div class="tab-area">
+      <div class="tab-buttons">
+        <button class="active" onclick="showTab('tab1', this)">ノイズ画像生成</button>
+        <button onclick="showTab('tab2', this)">ノイズアニメ生成</button>
+      </div>
+    </div>
+
+    <div class="tab-container">
+      <div id="tab1" class="tab-content active">
+        <div class="header-area">
+          <p class="description">「実行」で画像にノイズを加えます。<br>「オート」で各変数を自動で決定できます。</p>
+        </div>
+        <div class="canvas-container">
+          <canvas id="canvas" width="512" height="512"></canvas>
+        </div>
+
+        <div class="controls">
+          <div class="control-block">
+            <div class="control-label">ノイズを加えるピクセル数: <span class="hint">ノイズの強さ</span></div>
+            <div class="control-inputs">
+              <input type="number" id="n" value="200">
+            </div>
+          </div>
+
+          <div class="control-block">
+            <div class="control-label">ブロックノイズの横幅(px)</div>
+            <div class="control-inputs">
+              最小値 <input type="number" id="regionW_min" value="7">
+              最大値 <input type="number" id="regionW_max" value="10">
+            </div>
+          </div>
+
+          <div class="control-block">
+            <div class="control-label">ブロックノイズの縦幅(px)</div>
+            <div class="control-inputs">
+              最小値 <input type="number" id="regionH_min" value="1">
+              最大値 <input type="number" id="regionH_max" value="1">
+            </div>
+          </div>
+
+          <div class="control-block">
+            <div class="control-label">ブロックノイズの移動px(横方向)</span></div>
+            <div class="control-inputs">
+              最小値 <input type="number" id="offsetX_min" value="7">
+              最大値 <input type="number" id="offsetX_max" value="15">
+            </div>
+          </div>
+
+          <div class="control-block">
+            <div class="control-label">ブロックノイズの移動px(縦方向)</span></div>
+            <div class="control-inputs">
+              最小値 <input type="number" id="offsetY_min" value="0">
+              最大値 <input type="number" id="offsetY_max" value="2">
+            </div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button id="autoBtn">オート</button>
+          <button id="execBtn">実行</button>
+          <button id="undoBtn">ひとつ前に戻る</button>
+          <button id="resetBtn">リセット</button>
+          <button id="downloadBtn">ダウンロード</button>
+        </div>
+      </div>
+
+      <div id="tab2" class="tab-content">
+        <div class="header-area">
+          <p class="description">入力画像の背景を透過しておくとより自然な消失を表現できます。<br>ドット絵への使用を想定しているため、800×800px以内の画像のみ入力できます。</p>
+        </div>
+
+        <div class="canvas-container">
+          <div id="gifPreviewBox">
+            <img id="gifPreview" alt="GIF Preview" style="image-rendering: pixelated;">
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="control-block">
+            <div class="control-label">ステップ数: <span class="hint">GIFのコマ数(最大30)</span></div>
+            <div class="control-inputs">
+              <input type="number" id="fadeSteps" value="10" min="1">
+            </div>
+          </div>
+
+          <div class="control-block">
+            <div class="control-label">各コマの持続(ms): <span class="hint">アニメの速度</span></div>
+            <div class="control-inputs">
+              <input type="number" id="frameDuration" value="60" min="50">
+            </div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button id="fadeExecBtn">実行</button>
+          <button id="downloadGifBtn">GIFを保存</button>
+          <button id="downloadTileBtn">アニメタイルを保存</button>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+
+    <footer>
+    © 2025 Mathmarock - All rights reserved.
+    </footer>
+  </body>
+</html>
